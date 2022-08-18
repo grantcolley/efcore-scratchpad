@@ -6,9 +6,9 @@ namespace EFCoreScratchPad.Data
     {
         public string ConnectionString { get; }
 
-        public ScratchPadContext()
+        public ScratchPadContext(string connectionString)
         {
-            ConnectionString = String.Empty;
+            ConnectionString = connectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
