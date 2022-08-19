@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EFCoreScratchPad.Model
 {
@@ -6,12 +7,11 @@ namespace EFCoreScratchPad.Model
     {
         public Customer()
         {
-            Product = new List<Product>();
+            Products = new List<Product>();
         }
 
         public int CustomerId { get; set; }
-        public int ProductId { get; set; }
-        public List<Product> Product { get; set; }
+        public List<Product> Products { get; set; }
 
         [Required]
         [StringLength(100)]
