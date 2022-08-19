@@ -15,7 +15,7 @@ namespace EFCoreScratchPad.Model
         public Redress? Redress { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(50)]
         public string? Name { get; set; }
 
         [Required]
