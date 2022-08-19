@@ -14,7 +14,7 @@ namespace EFCoreScratchPad.Model
         public List<Product> Products { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(150)]
         public string? Name { get; set; }
     }
 }
