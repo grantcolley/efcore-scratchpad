@@ -1,5 +1,6 @@
 ﻿using EFCoreScratchPad.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace EFCoreScratchPad.Data
 {
@@ -12,6 +13,9 @@ namespace EFCoreScratchPad.Data
 
         public ScratchPadContext(DbContextOptions<ScratchPadContext> options)
             : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.LogTo(Console.WriteLine);
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
