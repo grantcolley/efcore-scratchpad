@@ -17,8 +17,10 @@ builder.UseSqlServer(connectionString);
 using var dbContext = new ScratchPadContext(builder.Options);
 
 Console.WriteLine("Initialise data...");
-Console.WriteLine();
 
 Data.Initialise(dbContext);
+
+Console.WriteLine("Done");
+Console.WriteLine();
 
 Console.ReadLine();
