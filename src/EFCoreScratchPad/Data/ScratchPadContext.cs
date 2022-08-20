@@ -22,6 +22,7 @@ namespace EFCoreScratchPad.Data
             builder.Entity<Redress>()
                 .HasOne(r => r.Product)
                 .WithOne(p => p.Redress)
+                .HasForeignKey<Product>(p => p.RedressId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
