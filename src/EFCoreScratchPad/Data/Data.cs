@@ -26,6 +26,8 @@ namespace EFCoreScratchPad.Data
         private void Run()
         {
             ClearData();
+            CreateProjects();
+            CreateCustomersAndProducts();
         }
 
         private void ClearData()
@@ -40,7 +42,7 @@ namespace EFCoreScratchPad.Data
             scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Redresses, RESEED, 1)");
         }
 
-        private void CreatePrograms()
+        private void CreateProjects()
         {
             projects.Add(
                 "IRMS",
@@ -83,30 +85,36 @@ namespace EFCoreScratchPad.Data
             scratchPadContext.SaveChanges();
         }
 
-        private void CreateCustomers()
+        private void CreateCustomersAndProducts()
         {
             List<Customer> customers = new();
 
-            var lines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "customers.csv"));
+            var customerLines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "_customers.csv"));
+            var productLines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "_products.csv"));
 
-            foreach (var line in lines.Skip(1))
+            foreach (var line in customerLines.Skip(1))
             {
-                var c = line.Split(',');
-
                 var customer = new Customer
                 {
-                    Name = $"{c[0]} {c[1]} {c[2]}"
+                    Name = line
                 };
 
-                customer.Products.Add(new Product
+                var products = productLines.Where(p => p.StartsWith(line));
+
+                foreach(var product in products)
                 {
-                    Name = c[11],
-                    ProductType = (ProductType)Enum.Parse(typeof(ProductType), c[12]),
-                    Duration = int.Parse(c[15]),
-                    Rate = decimal.Parse(c[16]),
-                    StartDate = DateTime.Parse(c[17]),
-                    Value = decimal.Parse(c[18])
-                });
+                    var p = product.Split(",");
+
+                    customer.Products.Add(new Product
+                    {
+                        Name = p[1],
+                        ProductType = (ProductType)Enum.Parse(typeof(ProductType), p[2]),
+                        Duration = int.Parse(p[5]),
+                        Rate = decimal.Parse(p[6]),
+                        StartDate = DateTime.Parse(p[7]),
+                        Value = decimal.Parse(p[8])
+                    });
+                }
 
                 customers.Add(customer);
             }
