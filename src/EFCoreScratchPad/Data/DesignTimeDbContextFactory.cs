@@ -25,9 +25,11 @@ namespace Headway.Repository.Data
                 = new ConfigurationBuilder().SetBasePath(
                     Directory.GetCurrentDirectory()).AddJsonFile(@Directory.GetCurrentDirectory() + "/../EFCoreScratchPad/appsettings.json").Build();
 
-            var builder = new DbContextOptionsBuilder<ScratchPadContext>();            
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-                builder.UseSqlServer(connectionString);
+
+            var builder = new DbContextOptionsBuilder<ScratchPadContext>();
+            builder.EnableSensitiveDataLogging(true);
+            builder.UseSqlServer(connectionString);
 
             return new ScratchPadContext(builder.Options);
         }
