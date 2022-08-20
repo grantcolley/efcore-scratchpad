@@ -4,6 +4,7 @@ using EFCoreScratchPad.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreScratchPad.Migrations
 {
     [DbContext(typeof(ScratchPadContext))]
-    partial class ScratchPadContextModelSnapshot : ModelSnapshot
+    [Migration("20220820064742_Initial_2")]
+    partial class Initial_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,7 @@ namespace EFCoreScratchPad.Migrations
                     b.Property<decimal?>("Rate")
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<int?>("RedressId")
+                    b.Property<int>("RedressId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
@@ -80,8 +82,7 @@ namespace EFCoreScratchPad.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("RedressId")
-                        .IsUnique()
-                        .HasFilter("[RedressId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -163,7 +164,8 @@ namespace EFCoreScratchPad.Migrations
                     b.HasOne("EFCoreScratchPad.Model.Redress", "Redress")
                         .WithOne("Product")
                         .HasForeignKey("EFCoreScratchPad.Model.Product", "RedressId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 
