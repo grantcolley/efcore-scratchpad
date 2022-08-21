@@ -33,14 +33,14 @@ namespace EFCoreScratchPad.Data
 
         private void ClearData()
         {
+            scratchPadContext.Database.ExecuteSqlRaw("DELETE FROM Redresses");
+            scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Redresses, RESEED, 1)");
             scratchPadContext.Database.ExecuteSqlRaw("DELETE FROM Projects");
             scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Projects, RESEED, 1)");
             scratchPadContext.Database.ExecuteSqlRaw("DELETE FROM Products");
             scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Products, RESEED, 1)");
             scratchPadContext.Database.ExecuteSqlRaw("DELETE FROM Customers");
             scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Customers, RESEED, 1)");
-            scratchPadContext.Database.ExecuteSqlRaw("DELETE FROM Redresses");
-            scratchPadContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Redresses, RESEED, 1)");
         }
 
         private void CreateProjects()
