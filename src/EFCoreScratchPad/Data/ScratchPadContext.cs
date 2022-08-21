@@ -23,6 +23,10 @@ namespace EFCoreScratchPad.Data
                 .HasIndex(p => p.Name)
                 .IsUnique();
 
+            builder.Entity<Redress>()
+                .HasIndex(r => r.ProductId)
+                .IsUnique();
+
             builder.Entity<Customer>()
                 .HasMany(c => c.Products)
                 .WithOne(p => p.Customer)
