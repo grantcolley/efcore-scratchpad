@@ -28,6 +28,7 @@ namespace EFCoreScratchPad.Data
             ClearData();
             CreateProjects();
             CreateCustomersAndProducts();
+            CreateRedressCases();
         }
 
         private void ClearData()
@@ -123,6 +124,31 @@ namespace EFCoreScratchPad.Data
             {
                 scratchPadContext.Customers.Add(customer);
             }
+
+            scratchPadContext.SaveChanges();
+        }
+
+        private void CreateRedressCases()
+        {
+            var projects = scratchPadContext.Projects.ToList();
+
+            var products = scratchPadContext.Products
+                .Include(p => p.Customer)
+                .ToList();
+
+            var redresses = (from proj in projects
+                        join prod in products on proj.ProductType equals prod.ProductType
+                        where proj.ProductType.Equals(ProductType.Home)
+                        || proj.ProductType.Equals(ProductType.Vehicle)
+                        select new Redress
+                        {
+                            Name = $"{proj.Name} {prod.Customer.Name}",
+                            Project = proj,
+                            Product = prod,
+                            Customer = prod.Customer
+                        }).ToList();
+
+            scratchPadContext.Redresses.AddRange(redresses);
 
             scratchPadContext.SaveChanges();
         }
