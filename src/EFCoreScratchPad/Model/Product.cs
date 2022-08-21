@@ -11,7 +11,6 @@ namespace EFCoreScratchPad.Model
         public ProductType ProductType { get; set; }
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
-        public int? RedressId { get; set; }
         public Redress? Redress { get; set; }
 
         [Required]
