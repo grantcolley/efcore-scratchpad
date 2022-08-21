@@ -39,12 +39,6 @@ namespace EFCoreScratchPad.Data
                 .HasForeignKey(r => r.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Customer>()
-                .HasMany(c => c.Redresses)
-                .WithOne(r => r.Customer)
-                .HasForeignKey(r => r.CustomerId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Entity<Product>()
                 .HasOne(p => p.Redress)
                 .WithOne(r => r.Product)
