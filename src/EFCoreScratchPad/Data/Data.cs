@@ -142,10 +142,8 @@ namespace EFCoreScratchPad.Data
                         || proj.ProductType.Equals(ProductType.Vehicle)
                         select new Redress
                         {
-                            Name = $"{proj.Name} {prod.Customer.Name}",
                             Project = proj,
                             Product = prod,
-                            Customer = prod.Customer
                         }).ToList();
 
             scratchPadContext.Redresses.AddRange(redresses);
