@@ -45,7 +45,7 @@ namespace EFCoreScratchPad.Data
                 .HasOne(p => p.Redress)
                 .WithOne(r => r.Product)
                 .HasForeignKey<Redress>(r => r.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
