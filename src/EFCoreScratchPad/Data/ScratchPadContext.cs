@@ -23,11 +23,29 @@ namespace EFCoreScratchPad.Data
                 .HasIndex(p => p.Name)
                 .IsUnique();
 
-            builder.Entity<Redress>()
-                .HasOne(r => r.Product)
-                .WithOne(p => p.Redress)
-                .HasForeignKey<Product>(p => p.RedressId)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Customer>()
+                .HasMany(c => c.Products)
+                .WithOne(p => p.Customer)
+                .HasForeignKey(p => p.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Project>()
+                .HasMany(p => p.Redresses)
+                .WithOne(r => r.Project)
+                .HasForeignKey(r => r.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Customer>()
+                .HasMany(c => c.Redresses)
+                .WithOne(r => r.Customer)
+                .HasForeignKey(r => r.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Product>()
+                .HasOne(p => p.Redress)
+                .WithOne(r => r.Product)
+                .HasForeignKey<Redress>(r => r.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,7 @@ namespace EFCoreScratchPad.Model
     {
         public int ProjectId { get; set; }
         public ProductType ProductType { get; set; }
+        public List<Redress>? Redresses { get; set; }
 
         [Required]
         [StringLength(50)]

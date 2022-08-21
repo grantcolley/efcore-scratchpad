@@ -12,6 +12,7 @@ namespace EFCoreScratchPad.Model
 
         public int CustomerId { get; set; }
         public List<Product> Products { get; set; }
+        public List<Redress>? Redresses { get; set; }
 
         [Required]
         [StringLength(150)]
